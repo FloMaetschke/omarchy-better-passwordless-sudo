@@ -1,4 +1,4 @@
-# Better Passwordless Sudo
+# Omarchy Better Passwordless Sudo
 
 Ersetzt Omarchys Menüeintrag **Setup → Security → Passwordless Sudo** durch eine
 Auswahl der Laufzeit. Statt der fest eingebauten 15 Minuten stehen 15 min, 1, 2,
@@ -28,13 +28,13 @@ Liste bekommt zusätzlich **Deaktivieren**; eine Zeitwahl setzt den Timer neu.
 ## Installation
 
 ```bash
-git clone <url> better-passwordless-sudo
-cd better-passwordless-sudo
+git clone <url> omarchy-better-passwordless-sudo
+cd omarchy-better-passwordless-sudo
 ./install.sh
 ```
 
 Der Installer legt das Skript nach `~/.local/bin/`, die Übersetzungen nach
-`~/.local/share/better-passwordless-sudo/locale/` und trägt den Menüeintrag in
+`~/.local/share/omarchy-better-passwordless-sudo/locale/` und trägt den Menüeintrag in
 `~/.config/omarchy/extensions/omarchy-menu.jsonc` ein. Er ist mehrfach
 ausführbar: ein vorhandener Eintrag wird ersetzt, nicht verdoppelt. Vor jeder
 Änderung entsteht eine Sicherung der Menüdatei.
@@ -82,8 +82,8 @@ Sprachcode (`zh`), zuletzt Englisch.
 | `zh` 简体中文 | `zh_TW` 繁體中文 |  |
 
 Übersetzungen liegen als eigene Dateien unter `locale/<code>.sh` und werden nach
-`~/.local/share/better-passwordless-sudo/locale/` installiert. Das Skript sucht sie in
-dieser Reihenfolge: `$BETTER_PASSWORDLESS_SUDO_LOCALE_DIR`, das Installationsverzeichnis,
+`~/.local/share/omarchy-better-passwordless-sudo/locale/` installiert. Das Skript sucht sie in
+dieser Reihenfolge: `$OMARCHY_BETTER_PASSWORDLESS_SUDO_LOCALE_DIR`, das Installationsverzeichnis,
 dann `../locale` neben dem Skript — so läuft es auch direkt aus dem Repo.
 
 Eine Sprache ergänzen heißt: eine Datei mit denselben fünfzehn `T_*`-Variablen

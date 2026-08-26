@@ -1,5 +1,5 @@
 # नेपाली (ne)
-# Teil von Better Passwordless Sudo. Von bin/better-passwordless-sudo gesourct.
+# Teil von Omarchy Better Passwordless Sudo. Von bin/omarchy-better-passwordless-sudo gesourct.
 
 T_MIN="मि"
 T_HOUR="घ"

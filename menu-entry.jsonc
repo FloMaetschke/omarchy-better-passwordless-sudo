@@ -14,5 +14,5 @@
   "icon": "󰟵",
   "label": "Passwordless Sudo",
   "checked": "systemctl is-active --quiet omarchy-nopasswd-expire-$USER.timer",
-  "action": "omarchy-launch-floating-terminal-with-presentation $HOME/.local/bin/better-passwordless-sudo"
+  "action": "omarchy-launch-floating-terminal-with-presentation $HOME/.local/bin/omarchy-better-passwordless-sudo"
 },
