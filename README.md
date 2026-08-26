@@ -6,24 +6,12 @@ duration picker. Instead of the hard-coded 15 minutes you get 15 min and 1, 2,
 
 The interface speaks the system language.
 
-```
-WARNING: passwordless sudo gives ANY process running as your user
-full root access without a password — until the time runs out.
-Arrow keys to choose, Enter confirms, Esc cancels.
-
-Enable passwordless sudo for:
-> 15 min
-  1 h
-  2 h
-  4 h
-  8 h
-  12 h
-  24 h
-  Cancel
-```
+![Enabling passwordless sudo](docs/screenshot-enable.png)
 
 If passwordless sudo is already active, the header shows the remaining time and
 the list gains a **Disable** entry; picking a duration re-arms the timer.
+
+![Passwordless sudo already active](docs/screenshot-active.png)
 
 ## Installation
 
