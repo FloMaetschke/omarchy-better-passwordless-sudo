@@ -150,3 +150,21 @@ precaution the original takes.
 ## License
 
 MIT, see [LICENSE](LICENSE).
+
+## Packaging
+
+`packaging/aur/` holds the PKGBUILD, the `.install` file and the generated
+`.SRCINFO` for the AUR package. The AUR repository is a separate git
+repository that carries only those three files; this directory is the source of
+truth they are copied from.
+
+Cutting a release:
+
+```bash
+git tag -a vX.Y.Z -m "..." && git push --follow-tags
+cd packaging/aur
+sed -i "s/^pkgver=.*/pkgver=X.Y.Z/" PKGBUILD
+updpkgsums                       # pulls the tag tarball, rewrites sha256sums
+makepkg --printsrcinfo > .SRCINFO
+makepkg -f                       # local test build
+```

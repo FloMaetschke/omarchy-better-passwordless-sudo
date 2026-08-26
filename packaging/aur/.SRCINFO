@@ -1,0 +1,17 @@
+pkgbase = omarchy-better-passwordless-sudo
+	pkgdesc = Omarchy menu entry for passwordless sudo with a selectable duration, in 68 languages
+	pkgver = 1.0.0
+	pkgrel = 1
+	url = https://github.com/FloMaetschke/omarchy-better-passwordless-sudo
+	install = omarchy-better-passwordless-sudo.install
+	arch = any
+	license = MIT
+	depends = bash
+	depends = gum
+	depends = omarchy
+	depends = systemd
+	depends = sudo
+	source = omarchy-better-passwordless-sudo-1.0.0.tar.gz::https://github.com/FloMaetschke/omarchy-better-passwordless-sudo/archive/refs/tags/v1.0.0.tar.gz
+	sha256sums = f186133c50f21aa1af45a3f4b1db4ebadb7de662a29d229077d8b7f8f36b806b
+
+pkgname = omarchy-better-passwordless-sudo

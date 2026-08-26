@@ -1,0 +1,26 @@
+# Maintainer: Florian Mätschke <florian@maetschke.com>
+
+pkgname=omarchy-better-passwordless-sudo
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Omarchy menu entry for passwordless sudo with a selectable duration, in 68 languages"
+arch=('any')
+url="https://github.com/FloMaetschke/omarchy-better-passwordless-sudo"
+license=('MIT')
+depends=('bash' 'gum' 'omarchy' 'systemd' 'sudo')
+install="$pkgname.install"
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('f186133c50f21aa1af45a3f4b1db4ebadb7de662a29d229077d8b7f8f36b806b')
+
+package() {
+  cd "$pkgname-$pkgver"
+
+  install -Dm755 "bin/$pkgname" "$pkgdir/usr/bin/$pkgname"
+
+  install -dm755 "$pkgdir/usr/share/$pkgname/locale"
+  install -m644 locale/*.sh "$pkgdir/usr/share/$pkgname/locale/"
+
+  install -Dm644 menu-entry.jsonc "$pkgdir/usr/share/$pkgname/menu-entry.jsonc"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
