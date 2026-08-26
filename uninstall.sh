@@ -1,20 +1,27 @@
 #!/usr/bin/env bash
 #
-# Removes the script, the translations and the menu entry. A currently active
-# passwordless sudo is left alone — it expires through its own timer, or can be
-# switched off by hand with: omarchy sudo passwordless
+# Removes the menu entry, the script and the translations from your home
+# directory. A currently active passwordless sudo is left alone — it expires
+# through its own timer, or can be switched off by hand with:
+#   omarchy sudo passwordless
+#
+# Installed from a package? Then remove the package and drop the menu entry with
+# `omarchy-better-passwordless-sudo --remove-menu` beforehand.
 
 set -euo pipefail
 
+HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 BIN_DST="$HOME/.local/bin/omarchy-better-passwordless-sudo"
 DATA_DST="$HOME/.local/share/omarchy-better-passwordless-sudo"
-EXT="$HOME/.config/omarchy/extensions/omarchy-menu.jsonc"
-BEGIN='  // >>> omarchy-better-passwordless-sudo >>>'
-END='  // <<< omarchy-better-passwordless-sudo <<<'
 
-TMP=""
-cleanup() { rm -f "$TMP"; }
-trap cleanup EXIT
+# The markers do not depend on which copy runs, so the one in this checkout can
+# remove an entry written by the installed one.
+for candidate in "$BIN_DST" "$HERE/bin/omarchy-better-passwordless-sudo"; do
+  if [[ -x $candidate ]]; then
+    "$candidate" --remove-menu
+    break
+  fi
+done
 
 if [[ -f $BIN_DST ]]; then
   rm -f "$BIN_DST"
@@ -31,25 +38,6 @@ if [[ -d $DATA_DST ]]; then
 else
   echo "· No translations found"
 fi
-
-if [[ -f $EXT ]] && grep -qF "${BEGIN# *}" "$EXT" 2>/dev/null; then
-  TMP=$(mktemp)
-  awk -v b="$BEGIN" -v e="$END" '
-    index($0, b) { skip = 1; next }
-    index($0, e) { skip = 0; next }
-    !skip
-  ' "$EXT" >"$TMP"
-  backup="$EXT.bak.$(date +%s)"
-  cp "$EXT" "$backup"
-  cat "$TMP" >"$EXT"
-  echo "✓ Menu entry removed (backup: $backup)"
-  echo "  Omarchy's stock entry with its fixed 15 minutes applies again."
-else
-  echo "· No menu entry found"
-fi
-
-omarchy menu refresh >/dev/null 2>&1 || true
-echo "✓ Menu reloaded"
 
 if systemctl is-active --quiet "omarchy-nopasswd-expire-$USER.timer" 2>/dev/null; then
   echo

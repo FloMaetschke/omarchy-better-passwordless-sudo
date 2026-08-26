@@ -15,6 +15,21 @@ the list gains a **Disable** entry; picking a duration re-arms the timer.
 
 ## Installation
 
+### From the AUR
+
+```bash
+yay -S omarchy-better-passwordless-sudo
+omarchy-better-passwordless-sudo --setup-menu
+```
+
+The package installs system-wide, but the menu entry belongs to a single user's
+config, so a package cannot place it for you — `--setup-menu` does that, once,
+for whoever runs it. Before removing the package, run
+`omarchy-better-passwordless-sudo --remove-menu` while the command is still
+there.
+
+### From a checkout
+
 ```bash
 git clone https://github.com/FloMaetschke/omarchy-better-passwordless-sudo.git
 cd omarchy-better-passwordless-sudo
@@ -22,10 +37,10 @@ cd omarchy-better-passwordless-sudo
 ```
 
 The installer puts the script in `~/.local/bin/`, the translations in
-`~/.local/share/omarchy-better-passwordless-sudo/locale/`, and adds the menu
-entry to `~/.config/omarchy/extensions/omarchy-menu.jsonc`. It is safe to run
-repeatedly: an existing entry is replaced, not duplicated. The menu file is
-backed up before every change.
+`~/.local/share/omarchy-better-passwordless-sudo/locale/`, and has the installed
+copy add the menu entry to `~/.config/omarchy/extensions/omarchy-menu.jsonc`. It
+is safe to run repeatedly: an existing entry is replaced, not duplicated. The
+menu file is backed up before every change.
 
 ```bash
 ./uninstall.sh
