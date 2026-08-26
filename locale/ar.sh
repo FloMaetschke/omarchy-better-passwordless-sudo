@@ -1,5 +1,5 @@
 # العربية (ar)
-# Teil von Omarchy Better Passwordless Sudo. Von bin/omarchy-better-passwordless-sudo gesourct.
+# Part of Omarchy Better Passwordless Sudo. Sourced by bin/omarchy-better-passwordless-sudo.
 
 T_MIN="د"
 T_HOUR="س"

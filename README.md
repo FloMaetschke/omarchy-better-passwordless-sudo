@@ -1,59 +1,59 @@
 # Omarchy Better Passwordless Sudo
 
-Ersetzt Omarchys Menüeintrag **Setup → Security → Passwordless Sudo** durch eine
-Auswahl der Laufzeit. Statt der fest eingebauten 15 Minuten stehen 15 min, 1, 2,
-4, 8, 12 und 24 Stunden zur Wahl — mit den Pfeiltasten, 15 min vorausgewählt.
+Replaces Omarchy's **Setup → Security → Passwordless Sudo** menu entry with a
+duration picker. Instead of the hard-coded 15 minutes you get 15 min and 1, 2,
+4, 8, 12 and 24 hours — arrow keys to choose, 15 min preselected.
 
-Die Oberfläche spricht die Sprache des Systems.
+The interface speaks the system language.
 
 ```
-WARNUNG: Passwortloses sudo gibt JEDEM Prozess unter deinem Benutzer
-vollen Root-Zugriff ohne Passwort — bis die Zeit abläuft.
-Pfeiltasten wählen, Enter bestätigt, Esc bricht ab.
+WARNING: passwordless sudo gives ANY process running as your user
+full root access without a password — until the time runs out.
+Arrow keys to choose, Enter confirms, Esc cancels.
 
-Passwordless sudo aktivieren für:
-> 15 Min
-  1 Std
-  2 Std
-  4 Std
-  8 Std
-  12 Std
-  24 Std
-  Abbrechen
+Enable passwordless sudo for:
+> 15 min
+  1 h
+  2 h
+  4 h
+  8 h
+  12 h
+  24 h
+  Cancel
 ```
 
-Ist passwortloses sudo bereits aktiv, zeigt der Kopf die Restlaufzeit und die
-Liste bekommt zusätzlich **Deaktivieren**; eine Zeitwahl setzt den Timer neu.
+If passwordless sudo is already active, the header shows the remaining time and
+the list gains a **Disable** entry; picking a duration re-arms the timer.
 
 ## Installation
 
 ```bash
-git clone <url> omarchy-better-passwordless-sudo
+git clone https://github.com/FloMaetschke/omarchy-better-passwordless-sudo.git
 cd omarchy-better-passwordless-sudo
 ./install.sh
 ```
 
-Der Installer legt das Skript nach `~/.local/bin/`, die Übersetzungen nach
-`~/.local/share/omarchy-better-passwordless-sudo/locale/` und trägt den Menüeintrag in
-`~/.config/omarchy/extensions/omarchy-menu.jsonc` ein. Er ist mehrfach
-ausführbar: ein vorhandener Eintrag wird ersetzt, nicht verdoppelt. Vor jeder
-Änderung entsteht eine Sicherung der Menüdatei.
+The installer puts the script in `~/.local/bin/`, the translations in
+`~/.local/share/omarchy-better-passwordless-sudo/locale/`, and adds the menu
+entry to `~/.config/omarchy/extensions/omarchy-menu.jsonc`. It is safe to run
+repeatedly: an existing entry is replaced, not duplicated. The menu file is
+backed up before every change.
 
 ```bash
 ./uninstall.sh
 ```
 
-entfernt alles drei wieder; danach greift Omarchys Standardeintrag mit den
-festen 15 Minuten.
+removes all three again; Omarchy's stock entry with its fixed 15 minutes then
+applies once more.
 
-Voraussetzungen: eine Omarchy-Installation mit `gum`, `systemd` und `sudo` —
-auf einem Omarchy-System alles vorhanden.
+Requirements: an Omarchy installation with `gum`, `systemd` and `sudo` — all
+present on any Omarchy system.
 
-## Sprachen
+## Languages
 
-68 Sprachen. Die Sprache kommt aus `LC_ALL`, sonst `LC_MESSAGES`, sonst
-`LANG`. Zuerst wird die vollständige Form gesucht (`zh_TW`), dann der reine
-Sprachcode (`zh`), zuletzt Englisch.
+68 languages. The language comes from `LC_ALL`, else `LC_MESSAGES`, else
+`LANG`. The full form is looked up first (`zh_TW`), then the bare language code
+(`zh`), then English.
 
 | | | |
 |---|---|---|
@@ -81,71 +81,69 @@ Sprachcode (`zh`), zuletzt Englisch.
 | `ur` اردو | `uz` Oʻzbekcha | `vi` Tiếng Việt |
 | `zh` 简体中文 | `zh_TW` 繁體中文 |  |
 
-Übersetzungen liegen als eigene Dateien unter `locale/<code>.sh` und werden nach
-`~/.local/share/omarchy-better-passwordless-sudo/locale/` installiert. Das Skript sucht sie in
-dieser Reihenfolge: `$OMARCHY_BETTER_PASSWORDLESS_SUDO_LOCALE_DIR`, das Installationsverzeichnis,
-dann `../locale` neben dem Skript — so läuft es auch direkt aus dem Repo.
+Translations live in their own files under `locale/<code>.sh` and are installed
+to `~/.local/share/omarchy-better-passwordless-sudo/locale/`. The script looks
+for them in this order: `$OMARCHY_BETTER_PASSWORDLESS_SUDO_LOCALE_DIR`, the
+install directory, then `../locale` next to the script — so it also runs
+straight from a checkout.
 
-Eine Sprache ergänzen heißt: eine Datei mit denselben fünfzehn `T_*`-Variablen
-anlegen. Die Beschriftungen der Laufzeiten sind an den **Index** der Minutenwerte
-gebunden, nicht an ihren Text — übersetzte Einheiten können also nichts
-verschieben. In `T_ACTIVE`, `T_CHOSEN`, `T_UPDATED` und `T_NOW_ON` steht genau ein
-`%s` für die Zeitangabe; ersetzt wird per Textersetzung, nicht über `printf`, damit
-ein `%` in einer Übersetzung nichts kaputtmacht.
+Adding a language means writing one file with the same fifteen `T_*` variables.
+The duration labels are bound to the **index** of the minute values, not to
+their text, so translated units cannot shift anything. `T_ACTIVE`, `T_CHOSEN`,
+`T_UPDATED` and `T_NOW_ON` each carry exactly one `%s` for the time; it is
+substituted as text rather than through `printf`, so a stray `%` in a
+translation cannot break anything.
 
-Ein Vorbehalt zu den Übersetzungen: Englisch und Deutsch sind geprüft, alle
-übrigen sind maschinell erzeugt und nicht von Muttersprachlern gegengelesen.
-Korrekturen sind willkommen. Bei den von rechts nach links geschriebenen
-Sprachen (`ar`, `fa`, `he`, `ur`) hängt die Darstellung davon ab, wie gut das
-Terminal bidirektionalen Text setzt; die Auswahl funktioniert, das Schriftbild
-kann verrutschen. Schriften außerhalb des lateinischen Alphabets brauchen eine
-Terminalschrift mit den passenden Zeichen.
+One caveat about the translations: English and German have been reviewed, all
+the others are machine-generated and have not been checked by native speakers.
+Corrections are welcome. For the right-to-left languages (`ar`, `fa`, `he`,
+`ur`) the layout depends on how well your terminal handles bidirectional text —
+selection works, but the rendering may be off. Scripts outside the Latin
+alphabet need a terminal font that carries the glyphs.
 
-## Wie es arbeitet
+## How it works
 
-Wie Omarchys Original: eine Datei `/etc/sudoers.d/99-omarchy-nopasswd-$USER`
-mit `NOPASSWD: ALL` plus ein transienter systemd-Timer
-`omarchy-nopasswd-expire-$USER.timer`, der sie nach Ablauf wieder löscht.
-Restlaufzeit prüfen:
+The same way Omarchy's original does: a file
+`/etc/sudoers.d/99-omarchy-nopasswd-$USER` holding `NOPASSWD: ALL`, plus a
+transient systemd timer `omarchy-nopasswd-expire-$USER.timer` that deletes it
+when the time is up. To check what is left:
 
 ```bash
 systemctl list-timers 'omarchy-nopasswd*' --all
 ```
 
-Zwei Details, die beim Nachbauen leicht schiefgehen:
+Three details that are easy to get wrong when building something like this:
 
-- Der Timer wird mit `--on-active` gestellt und ist damit **monoton**.
-  `NextElapseUSecRealtime` bleibt deshalb leer; die Restzeit kommt aus
-  `systemctl list-timers -o json`, Feld `next`.
-- Der Menüeintrag prüft für sein Häkchen den **Timer**, nicht die
-  sudoers-Datei. Die liegt in einem nur für root lesbaren Verzeichnis — eine
-  Prüfung darauf löste bei jedem Öffnen des Menüs eine Passwortabfrage aus.
+- The timer is armed with `--on-active` and is therefore **monotonic**, which
+  leaves `NextElapseUSecRealtime` empty. The remaining time comes from
+  `systemctl list-timers -o json`, field `next`.
+- The menu entry checks the **timer** for its checkmark, not the sudoers file.
+  That file sits in a directory only root may read, so testing it would trigger
+  a password prompt every time the menu opens.
+- As soon as stdout is captured by a command substitution — `choice=$(gum
+  choose …)` — gum draws its interface on **stderr**. Redirecting stderr to
+  suppress its "nothing selected" line makes the whole picker invisible while
+  the keys still work.
 
-Das Skript leert vor der Auswahl den Bildschirm und setzt die Listenhöhe exakt
-auf die Zahl der Einträge. Der Präsentations-Wrapper des Menüs gibt vorher rund
-dreizehn Zeilen Logo aus; kommt darunter noch ein längerer Vorspann, scrollt das
-Terminal genau während gum zeichnet.
+## Why this is not an Omarchy plugin
 
-## Warum kein Omarchy-Plugin
+An Omarchy shell plugin is Quickshell/QML: every `kind` (`bar`, `bar-widget`,
+`menu`, `overlay`, `panel`, `service`) requires a QML entry point, and
+`omarchy plugin validate` rejects anything else. A plugin cannot contribute menu
+entries either — `Menu.qml` reads exactly two files, the default one and the
+user's single extension file. A bash script plus a menu entry does not fit that
+format, so it ships with an installer instead.
 
-Ein Omarchy-Shell-Plugin ist Quickshell/QML: jede `kind` (`bar`, `bar-widget`,
-`menu`, `overlay`, `panel`, `service`) verlangt einen QML-Einstiegspunkt, und
-`omarchy plugin validate` weist alles andere ab. Menüeinträge kann ein Plugin
-ohnehin nicht liefern — `Menu.qml` liest genau zwei Dateien, den Default und die
-eine Extension-Datei des Benutzers. Ein Bash-Skript plus Menüeintrag passt
-darum nicht in dieses Format und wird hier stattdessen mit einem Installer
-ausgeliefert.
+## Security
 
-## Sicherheit
+Passwordless sudo removes a real layer of protection: **any** process running
+under your user account can become root without being asked, for as long as it
+lasts. Pick the shortest duration that gets the job done.
 
-Passwortloses sudo hebelt eine echte Schutzschicht aus: **jeder** Prozess unter
-deinem Benutzerkonto kann in dieser Zeit ohne Rückfrage root werden. Nimm die
-kürzeste Laufzeit, die für die Aufgabe reicht.
+The timer does not survive a reboot. If the sudoers file is left behind without
+its timer, the script deletes it immediately on the next run — the same
+precaution the original takes.
 
-Der Timer überlebt keinen Neustart. Bleibt die sudoers-Datei nach einem
-Reboot ohne zugehörigen Timer zurück, löscht das Skript sie beim nächsten
-Aufruf sofort — dieselbe Vorsichtsmaßnahme wie im Original.
+## License
 
-## Lizenz
-
-MIT, siehe [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).

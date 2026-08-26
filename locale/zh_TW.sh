@@ -1,5 +1,5 @@
 # 繁體中文 (zh_TW)
-# Teil von Omarchy Better Passwordless Sudo. Von bin/omarchy-better-passwordless-sudo gesourct.
+# Part of Omarchy Better Passwordless Sudo. Sourced by bin/omarchy-better-passwordless-sudo.
 
 T_MIN="分鐘"
 T_HOUR="小時"
