@@ -1,0 +1,18 @@
+// Der Menüeintrag, den install.sh in
+// ~/.config/omarchy/extensions/omarchy-menu.jsonc einfügt.
+//
+// Er überschreibt den Omarchy-Standardeintrag "setup.security.passwordless-sudo",
+// indem er dieselbe ID belegt. Der Standardeintrag ruft omarchy-sudo-passwordless
+// mit fester 15-Minuten-Vorgabe auf; dieser hier ruft die Zeitauswahl.
+//
+// "checked" prüft den Ablauf-Timer statt der sudoers-Datei. Das ist Absicht:
+// die Datei liegt in einem Verzeichnis, das nur root lesen darf, eine Prüfung
+// darauf würde beim Öffnen des Menüs eine Passwortabfrage auslösen.
+// systemctl is-active kommt ohne Rechte aus.
+
+"setup.security.passwordless-sudo": {
+  "icon": "󰟵",
+  "label": "Passwordless Sudo",
+  "checked": "systemctl is-active --quiet omarchy-nopasswd-expire-$USER.timer",
+  "action": "omarchy-launch-floating-terminal-with-presentation $HOME/.local/bin/omarchy-sudo-passwordless-menu"
+},
