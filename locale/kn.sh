@@ -1,5 +1,5 @@
 # ಕನ್ನಡ (kn)
-# Teil von omarchy-sudo-timer. Von bin/omarchy-sudo-passwordless-menu gesourct.
+# Teil von Better Passwordless Sudo. Von bin/better-passwordless-sudo gesourct.
 
 T_MIN="ನಿ"
 T_HOUR="ಗಂ"

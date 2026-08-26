@@ -1,5 +1,5 @@
 # 日本語 (ja)
-# Teil von omarchy-sudo-timer. Von bin/omarchy-sudo-passwordless-menu gesourct.
+# Teil von Better Passwordless Sudo. Von bin/better-passwordless-sudo gesourct.
 
 T_MIN="分"
 T_HOUR="時間"

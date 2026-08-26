@@ -1,5 +1,5 @@
 # नेपाली (ne)
-# Teil von omarchy-sudo-timer. Von bin/omarchy-sudo-passwordless-menu gesourct.
+# Teil von Better Passwordless Sudo. Von bin/better-passwordless-sudo gesourct.
 
 T_MIN="मि"
 T_HOUR="घ"

@@ -6,11 +6,11 @@
 
 set -euo pipefail
 
-BIN_DST="$HOME/.local/bin/omarchy-sudo-passwordless-menu"
-DATA_DST="$HOME/.local/share/omarchy-sudo-timer"
+BIN_DST="$HOME/.local/bin/better-passwordless-sudo"
+DATA_DST="$HOME/.local/share/better-passwordless-sudo"
 EXT="$HOME/.config/omarchy/extensions/omarchy-menu.jsonc"
-BEGIN='  // >>> omarchy-sudo-timer >>>'
-END='  // <<< omarchy-sudo-timer <<<'
+BEGIN='  // >>> better-passwordless-sudo >>>'
+END='  // <<< better-passwordless-sudo <<<'
 
 TMP=""
 cleanup() { rm -f "$TMP"; }
@@ -25,7 +25,7 @@ fi
 
 if [[ -d $DATA_DST ]]; then
   case "$DATA_DST" in
-  */omarchy-sudo-timer) rm -rf "$DATA_DST"; echo "✓ Sprachen entfernt: $DATA_DST" ;;
+  */better-passwordless-sudo) rm -rf "$DATA_DST"; echo "✓ Sprachen entfernt: $DATA_DST" ;;
   *) echo "· unerwarteter Pfad, nicht angefasst: $DATA_DST" ;;
   esac
 else

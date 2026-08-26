@@ -1,5 +1,5 @@
 # 繁體中文 (zh_TW)
-# Teil von omarchy-sudo-timer. Von bin/omarchy-sudo-passwordless-menu gesourct.
+# Teil von Better Passwordless Sudo. Von bin/better-passwordless-sudo gesourct.
 
 T_MIN="分鐘"
 T_HOUR="小時"

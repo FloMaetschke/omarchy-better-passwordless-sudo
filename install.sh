@@ -9,13 +9,13 @@
 set -euo pipefail
 
 HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-BIN_SRC="$HERE/bin/omarchy-sudo-passwordless-menu"
-BIN_DST="$HOME/.local/bin/omarchy-sudo-passwordless-menu"
+BIN_SRC="$HERE/bin/better-passwordless-sudo"
+BIN_DST="$HOME/.local/bin/better-passwordless-sudo"
 LOCALE_SRC="$HERE/locale"
-LOCALE_DST="$HOME/.local/share/omarchy-sudo-timer/locale"
+LOCALE_DST="$HOME/.local/share/better-passwordless-sudo/locale"
 EXT="$HOME/.config/omarchy/extensions/omarchy-menu.jsonc"
-BEGIN='  // >>> omarchy-sudo-timer >>>'
-END='  // <<< omarchy-sudo-timer <<<'
+BEGIN='  // >>> better-passwordless-sudo >>>'
+END='  // <<< better-passwordless-sudo <<<'
 
 die() {
   echo "install.sh: $*" >&2
@@ -49,7 +49,7 @@ echo "✓ Skript installiert: $BIN_DST"
 # nicht zurueckbleiben. Der Pfad ist fest verdrahtet und liegt unterhalb des
 # eigenen Datenverzeichnisses.
 case "$LOCALE_DST" in
-*/omarchy-sudo-timer/locale) ;;
+*/better-passwordless-sudo/locale) ;;
 *) die "unerwarteter Zielpfad für Sprachen: $LOCALE_DST" ;;
 esac
 rm -rf "$LOCALE_DST"
@@ -88,7 +88,7 @@ head -n $((last - 1)) "$TMP1" >"$TMP2"
   // "checked" fragt den Ablauf-Timer ab statt der sudoers-Datei — die liegt in
   // einem nur für root lesbaren Verzeichnis und würde beim Öffnen des Menüs
   // eine Passwortabfrage auslösen.
-  "setup.security.passwordless-sudo": {"icon":"󰟵","label":"Passwordless Sudo","checked":"systemctl is-active --quiet omarchy-nopasswd-expire-$USER.timer","action":"omarchy-launch-floating-terminal-with-presentation $HOME/.local/bin/omarchy-sudo-passwordless-menu"},
+  "setup.security.passwordless-sudo": {"icon":"󰟵","label":"Passwordless Sudo","checked":"systemctl is-active --quiet omarchy-nopasswd-expire-$USER.timer","action":"omarchy-launch-floating-terminal-with-presentation $HOME/.local/bin/better-passwordless-sudo"},
 ENTRY
   echo "$END"
 } >>"$TMP2"
