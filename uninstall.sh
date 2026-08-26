@@ -7,6 +7,7 @@
 set -euo pipefail
 
 BIN_DST="$HOME/.local/bin/omarchy-sudo-passwordless-menu"
+DATA_DST="$HOME/.local/share/omarchy-sudo-timer"
 EXT="$HOME/.config/omarchy/extensions/omarchy-menu.jsonc"
 BEGIN='  // >>> omarchy-sudo-timer >>>'
 END='  // <<< omarchy-sudo-timer <<<'
@@ -20,6 +21,15 @@ if [[ -f $BIN_DST ]]; then
   echo "✓ Skript entfernt: $BIN_DST"
 else
   echo "· Skript war nicht installiert"
+fi
+
+if [[ -d $DATA_DST ]]; then
+  case "$DATA_DST" in
+  */omarchy-sudo-timer) rm -rf "$DATA_DST"; echo "✓ Sprachen entfernt: $DATA_DST" ;;
+  *) echo "· unerwarteter Pfad, nicht angefasst: $DATA_DST" ;;
+  esac
+else
+  echo "· Keine Sprachdateien gefunden"
 fi
 
 if [[ -f $EXT ]] && grep -qF "${BEGIN# *}" "$EXT" 2>/dev/null; then

@@ -11,6 +11,8 @@ set -euo pipefail
 HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 BIN_SRC="$HERE/bin/omarchy-sudo-passwordless-menu"
 BIN_DST="$HOME/.local/bin/omarchy-sudo-passwordless-menu"
+LOCALE_SRC="$HERE/locale"
+LOCALE_DST="$HOME/.local/share/omarchy-sudo-timer/locale"
 EXT="$HOME/.config/omarchy/extensions/omarchy-menu.jsonc"
 BEGIN='  // >>> omarchy-sudo-timer >>>'
 END='  // <<< omarchy-sudo-timer <<<'
@@ -32,12 +34,28 @@ done
 command -v omarchy >/dev/null 2>&1 ||
   die "Omarchy nicht gefunden — dieses Paket setzt eine Omarchy-Installation voraus."
 [[ -f $BIN_SRC ]] || die "Skript nicht gefunden: $BIN_SRC"
+[[ -d $LOCALE_SRC ]] || die "Sprachverzeichnis nicht gefunden: $LOCALE_SRC"
+compgen -G "$LOCALE_SRC/*.sh" >/dev/null || die "keine Sprachdateien in $LOCALE_SRC"
 
 # --- Skript ----------------------------------------------------------------
 
 mkdir -p "$HOME/.local/bin"
 install -m 755 "$BIN_SRC" "$BIN_DST"
 echo "✓ Skript installiert: $BIN_DST"
+
+# --- Sprachen ----------------------------------------------------------------
+
+# Vollstaendig ersetzen statt ergaenzen, damit Dateien einer entfernten Sprache
+# nicht zurueckbleiben. Der Pfad ist fest verdrahtet und liegt unterhalb des
+# eigenen Datenverzeichnisses.
+case "$LOCALE_DST" in
+*/omarchy-sudo-timer/locale) ;;
+*) die "unerwarteter Zielpfad für Sprachen: $LOCALE_DST" ;;
+esac
+rm -rf "$LOCALE_DST"
+mkdir -p "$LOCALE_DST"
+install -m 644 "$LOCALE_SRC"/*.sh "$LOCALE_DST/"
+echo "✓ $(find "$LOCALE_DST" -name '*.sh' | wc -l) Sprachen installiert: $LOCALE_DST"
 
 # --- Menüeintrag -----------------------------------------------------------
 

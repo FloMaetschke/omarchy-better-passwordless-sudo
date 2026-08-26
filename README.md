@@ -33,7 +33,8 @@ cd omarchy-sudo-timer
 ./install.sh
 ```
 
-Der Installer legt das Skript nach `~/.local/bin/` und trägt den Menüeintrag in
+Der Installer legt das Skript nach `~/.local/bin/`, die Übersetzungen nach
+`~/.local/share/omarchy-sudo-timer/locale/` und trägt den Menüeintrag in
 `~/.config/omarchy/extensions/omarchy-menu.jsonc` ein. Er ist mehrfach
 ausführbar: ein vorhandener Eintrag wird ersetzt, nicht verdoppelt. Vor jeder
 Änderung entsteht eine Sicherung der Menüdatei.
@@ -42,22 +43,63 @@ ausführbar: ein vorhandener Eintrag wird ersetzt, nicht verdoppelt. Vor jeder
 ./uninstall.sh
 ```
 
-entfernt beides wieder; danach greift Omarchys Standardeintrag mit den festen
-15 Minuten.
+entfernt alles drei wieder; danach greift Omarchys Standardeintrag mit den
+festen 15 Minuten.
 
 Voraussetzungen: eine Omarchy-Installation mit `gum`, `systemd` und `sudo` —
 auf einem Omarchy-System alles vorhanden.
 
 ## Sprachen
 
-Deutsch, Englisch, Spanisch, Französisch, Italienisch, Portugiesisch und
-Niederländisch. Die Sprache kommt aus `LC_ALL`, sonst `LC_MESSAGES`, sonst
-`LANG`; alles Unbekannte fällt auf Englisch zurück.
+68 Sprachen. Die Sprache kommt aus `LC_ALL`, sonst `LC_MESSAGES`, sonst
+`LANG`. Zuerst wird die vollständige Form gesucht (`zh_TW`), dann der reine
+Sprachcode (`zh`), zuletzt Englisch.
 
-Eine weitere Sprache ergänzt man als `case`-Zweig in
-`bin/omarchy-sudo-passwordless-menu`. Beschriftungen der Laufzeiten sind an den
-Index der Minutenwerte gebunden und nicht an ihren Text — übersetzte Einheiten
-können also nichts verschieben.
+| | | |
+|---|---|---|
+| `af` Afrikaans | `ar` العربية | `bg` Български |
+| `bn` বাংলা | `bs` Bosanski | `ca` Català |
+| `cs` Čeština | `da` Dansk | `de` Deutsch |
+| `el` Ελληνικά | `en` English | `es` Español |
+| `et` Eesti | `eu` Euskara | `fa` فارسی |
+| `fi` Suomi | `fr` Français | `ga` Gaeilge |
+| `gu` ગુજરાતી | `he` עברית | `hi` हिन्दी |
+| `hr` Hrvatski | `hu` Magyar | `hy` Հայերեն |
+| `id` Bahasa Indonesia | `is` Íslenska | `it` Italiano |
+| `ja` 日本語 | `ka` ქართული | `kk` Қазақша |
+| `km` ភាសាខ្មែរ | `kn` ಕನ್ನಡ | `ko` 한국어 |
+| `lt` Lietuvių | `lv` Latviešu | `mk` Македонски |
+| `ml` മലയാളം | `mn` Монгол | `mr` मराठी |
+| `ms` Bahasa Melayu | `mt` Malti | `my` မြန်မာ |
+| `nb` Norsk bokmål | `ne` नेपाली | `nl` Nederlands |
+| `pa` ਪੰਜਾਬੀ | `pl` Polski | `pt` Português |
+| `ro` Română | `ru` Русский | `si` සිංහල |
+| `sk` Slovenčina | `sl` Slovenščina | `sq` Shqip |
+| `sr` Српски | `sv` Svenska | `sw` Kiswahili |
+| `ta` தமிழ் | `te` తెలుగు | `th` ไทย |
+| `tl` Filipino | `tr` Türkçe | `uk` Українська |
+| `ur` اردو | `uz` Oʻzbekcha | `vi` Tiếng Việt |
+| `zh` 简体中文 | `zh_TW` 繁體中文 |  |
+
+Übersetzungen liegen als eigene Dateien unter `locale/<code>.sh` und werden nach
+`~/.local/share/omarchy-sudo-timer/locale/` installiert. Das Skript sucht sie in
+dieser Reihenfolge: `$OMARCHY_SUDO_TIMER_LOCALE_DIR`, das Installationsverzeichnis,
+dann `../locale` neben dem Skript — so läuft es auch direkt aus dem Repo.
+
+Eine Sprache ergänzen heißt: eine Datei mit denselben fünfzehn `T_*`-Variablen
+anlegen. Die Beschriftungen der Laufzeiten sind an den **Index** der Minutenwerte
+gebunden, nicht an ihren Text — übersetzte Einheiten können also nichts
+verschieben. In `T_ACTIVE`, `T_CHOSEN`, `T_UPDATED` und `T_NOW_ON` steht genau ein
+`%s` für die Zeitangabe; ersetzt wird per Textersetzung, nicht über `printf`, damit
+ein `%` in einer Übersetzung nichts kaputtmacht.
+
+Ein Vorbehalt zu den Übersetzungen: Englisch und Deutsch sind geprüft, alle
+übrigen sind maschinell erzeugt und nicht von Muttersprachlern gegengelesen.
+Korrekturen sind willkommen. Bei den von rechts nach links geschriebenen
+Sprachen (`ar`, `fa`, `he`, `ur`) hängt die Darstellung davon ab, wie gut das
+Terminal bidirektionalen Text setzt; die Auswahl funktioniert, das Schriftbild
+kann verrutschen. Schriften außerhalb des lateinischen Alphabets brauchen eine
+Terminalschrift mit den passenden Zeichen.
 
 ## Wie es arbeitet
 
